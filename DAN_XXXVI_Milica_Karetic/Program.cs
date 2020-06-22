@@ -17,7 +17,7 @@ namespace DAN_XXXVI_Milica_Karetic
         public static string fileName = "FileNumbers.txt";
 
         /// <summary>
-        /// Method for generate numbers
+        /// Method for generate 10000 random numbers and add them into list
         /// </summary>
         public static void GenerateNumbers()
         {
@@ -34,17 +34,21 @@ namespace DAN_XXXVI_Milica_Karetic
         }
 
         /// <summary>
-        /// Method for generate matrix
+        /// Method for generate matrix with numbers from list
         /// </summary>
         public static void GenerateMatrix()
         {
             lock (locker)
             {
                 matrix = new int[100, 100];
+
+                //Wait until list count is 10000
                 while (list.Count < 10000)
                 {
                     Monitor.Wait(locker);
                 }
+
+                //numbers from list to matrix
                 for (int i = 0; i < 100; i++)
                 {
                     for (int j = 0; j < 100; j++)
@@ -55,6 +59,9 @@ namespace DAN_XXXVI_Milica_Karetic
             }
         }
 
+        /// <summary>
+        /// Method for read numbers from file and write to console
+        /// </summary>
         public static void ReadFromFile()
         {
             lock (fileName)
@@ -71,7 +78,12 @@ namespace DAN_XXXVI_Milica_Karetic
             }
         }
 
-
+        /// <summary>
+        /// Method that generate array with only odd numbers from matrix
+        /// </summary>
+        /// <remarks>
+        /// Write numbers from array to file
+        /// </remarks>
         public static void LogIntoFile()
         {
             //odd numbers
